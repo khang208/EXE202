@@ -1,0 +1,854 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="./White and Blue Modern Gift Logo.png" type="image/png">
+    <title>JoyfulBox - Tạo quà tùy chỉnh</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f8f9fa;
+        }
+
+        h1,
+        h2,
+        h3 {
+            color: #343a40;
+            font-weight: 700;
+        }
+
+        p {
+            color: #495057;
+            line-height: 1.6;
+        }
+
+        .navbar {
+            background-color: #343a40;
+            transition: background-color 0.3s;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .navbar.scrolled {
+            background-color: #343a40;
+        }
+
+        .navbar .nav-link {
+            color: white;
+            padding: 15px 20px;
+            transition: color 0.3s;
+        }
+
+        .navbar .nav-link:hover {
+            color: #ffc107;
+        }
+
+        .nav-item {
+            margin-left: 20px;
+        }
+
+        .nav-link.active {
+            color: #ffffff;
+            font-weight: 700;
+            border-bottom: 2px solid #ffc107;
+            background-color: rgba(255, 193, 7, 0.2);
+            border-radius: 5px;
+            padding: 12px 20px;
+            transition: background-color 0.3s, color 0.3s;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .section {
+            padding: 60px 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .about-section {
+            background-color: #ffffff;
+        }
+
+        .featured-section {
+            background-color: #e9ecef;
+        }
+
+        .articles-section,
+        .testimonials-section {
+            background-color: #ffffff;
+        }
+
+        /* Social Media */
+        .social-icons a {
+            margin: 0 15px;
+            color: #ffc107;
+            font-size: 24px;
+            transition: color 0.3s;
+        }
+
+        .social-icons a:hover {
+            color: #fff;
+        }
+
+        .blockquote-footer {
+            background-color: #343a40;
+            color: white;
+            margin-top: 10px;
+            padding: 40px 0;
+            text-align: center;
+        }
+
+        footer {
+            background-color: #343a40;
+            color: white;
+            padding: 40px 0;
+        }
+
+        .footer-info h5 {
+            color: #ffc107;
+        }
+
+        .footer-section h5 {
+            border-bottom: 2px solid #ffc107;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+
+
+
+        .table {
+            background-color: #ffffff;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-top: 20px;
+        }
+
+        .table th {
+            background-color: #2c3e50;
+            color: white;
+            font-weight: bold;
+        }
+
+        .table td {
+            vertical-align: middle;
+            padding: 15px;
+            border: 1px solid #dddddd;
+            transition: background-color 0.2s;
+        }
+
+        .table tr:hover td {
+            background-color: #f8f9fa;
+        }
+
+        .table td input {
+            width: 60px;
+            text-align: center;
+        }
+
+        .btn-danger {
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .btn-danger:hover {
+            background-color: #c0392b;
+            color: white;
+        }
+
+        .total-row {
+            font-weight: bold;
+            font-size: 1.25em;
+            background-color: #f9f9f9;
+        }
+
+        .checkout-btn {
+            background-color: #27ae60;
+            color: white;
+            font-size: 1.1em;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 5px;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+
+        .checkout-btn:hover {
+            background-color: #219653;
+            transform: translateY(-2px);
+        }
+
+        .footer-info h5 {
+            color: #ffcf8b;
+        }
+
+        .footer-section h5 {
+            border-bottom: 2px solid #ffcf8b;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+
+        .social-icons a {
+            color: #ffcf8b;
+            font-size: 24px;
+            margin: 0 15px;
+            transition: color 0.3s, transform 0.3s;
+        }
+
+        .social-icons a:hover {
+            color: #ffffff;
+            transform: rotate(15deg);
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .navbar .nav-item {
+                margin-left: 10px;
+            }
+
+            .section {
+                padding: 30px 10px;
+            }
+        }
+
+        .logo {
+            width: 50px;
+            border-radius: 100%;
+            margin-right: 10px;
+        }
+
+        .product-card {
+            display: flex;
+            /* Sử dụng flexbox cho bố cục */
+            align-items: center;
+            /* Căn giữa các phần tử theo chiều dọc */
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            /* Thêm viền */
+            border-radius: 12px;
+            /* Bo góc cho viền */
+            overflow: hidden;
+            /* Đảm bảo các phần tử không vượt ra ngoài viền */
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+            /* Thêm đổ bóng */
+            transition: transform 0.3s, box-shadow 0.3s;
+            /* Hiệu ứng chuyển động khi hover */
+            padding: 15px;
+            /* Thêm khoảng cách bên trong thẻ */
+            background-color: white;
+            /* Màu nền cho thẻ sản phẩm */
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            /* Di chuyển lên nhẹ khi hover */
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+            /* Đổ bóng mạnh hơn khi hover */
+        }
+
+        .product-img {
+            width: 120px;
+            /* Tăng kích thước hình ảnh một chút */
+            height: 120px;
+            /* Cố định chiều cao cho hình ảnh */
+            object-fit: cover;
+            /* Giữ nguyên tỷ lệ khung hình */
+            border-radius: 8px;
+            /* Bo góc cho hình ảnh */
+            margin-right: 20px;
+            /* Thêm khoảng cách giữa hình và thông tin */
+        }
+
+        .product-description {
+            flex: 1;
+            /* Để phần mô tả chiếm toàn bộ chiều rộng còn lại */
+        }
+
+        .product-description p {
+            margin: 5px 0;
+            /* Thêm khoảng cách cho các đoạn văn bản */
+        }
+
+        .product-price {
+            font-weight: bold;
+            /* Vẫn giữ chữ đậm cho giá */
+            color: #3498db;
+            /* Màu xanh dương tươi sáng hơn */
+            font-size: 1.2em;
+            /* Kích thước chữ cho giá */
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+            /* Thêm bóng mờ để làm nổi bật hơn */
+        }
+
+        .product-quantity {
+            margin-top: 10px;
+            /* Thêm khoảng cách cho ô nhập số lượng */
+            padding: 5px;
+            /* Thêm padding cho ô nhập */
+            border: 1px solid #ccc;
+            /* Viền cho ô nhập */
+            border-radius: 4px;
+            /* Bo góc cho ô nhập */
+            width: 60px;
+            /* Đặt chiều rộng cố định cho ô nhập */
+            outline: none;
+            /* Xóa outline mặc định */
+        }
+
+        .product-quantity:focus {
+            border-color: #007bff;
+            /* Thay đổi màu viền khi ô nhập được chọn */
+        }
+
+
+        .product-container {
+            border-right: 1px solid #dee2e6;
+            padding-right: 20px;
+        }
+
+        .product-card {
+            display: flex;
+            /* Sử dụng flexbox để căn chỉnh hình ảnh và thông tin */
+            align-items: center;
+            /* Căn giữa các phần tử theo chiều dọc */
+            border: 1px solid #ddd;
+            /* Viền nhẹ quanh card */
+            border-radius: 8px;
+            /* Bo tròn góc */
+            padding: 10px;
+            /* Padding cho card */
+            margin-bottom: 15px;
+            /* Khoảng cách giữa các card */
+            background-color: #f9f9f9;
+            /* Màu nền nhẹ nhàng */
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            /* Hiệu ứng chuyển tiếp cho transform và box-shadow */
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            /* Nâng card lên một chút khi hover */
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            /* Hiệu ứng đổ bóng khi hover */
+        }
+
+        .gift-box-img {
+            width: 100px;
+            /* Chiều rộng cố định cho hình ảnh */
+            height: auto;
+            /* Chiều cao tự động */
+            border-radius: 8px;
+            /* Bo tròn góc cho hình ảnh */
+            margin-right: 15px;
+            /* Khoảng cách giữa hình ảnh và thông tin */
+            transition: transform 0.3s ease;
+            /* Hiệu ứng chuyển tiếp cho hình ảnh */
+        }
+
+        .gift-box-img:hover {
+            transform: scale(1.05);
+            /* Phóng to hình ảnh khi hover */
+        }
+
+        .product-description {
+            flex-grow: 1;
+            /* Để mô tả chiếm không gian còn lại */
+        }
+
+        .product-price {
+            font-weight: bold;
+            /* Đậm chữ giá */
+            color: #3498db;
+            /* Màu xanh dương cho giá */
+            font-size: 1.1em;
+            /* Kích thước chữ cho giá */
+            transition: color 0.3s ease;
+            /* Hiệu ứng chuyển tiếp cho màu giá */
+        }
+
+        .product-price:hover {
+            color: #2980b9;
+            /* Đổi màu giá khi hover */
+        }
+
+        input[type="radio"] {
+            margin-left: 5px;
+            /* Khoảng cách giữa nhãn và radio button */
+            transition: transform 0.2s ease;
+            /* Hiệu ứng chuyển tiếp cho radio button */
+        }
+
+        input[type="radio"]:hover {
+            transform: scale(1.1);
+            /* Phóng to radio button khi hover */
+        }
+
+        .custom-message {
+            margin-top: 20px;
+            border: 1px solid #dee2e6;
+            padding: 15px;
+            border-radius: 5px;
+            background-color: #fff;
+        }
+
+        .selected-summary {
+            margin-top: 20px;
+            border: 1px solid #28a745;
+            padding: 15px;
+            border-radius: 5px;
+            background-color: #e9fce9;
+        }
+
+        .selected-summary h5 {
+            margin-bottom: 15px;
+        }
+
+        .next {
+            margin-bottom: 10px;
+            margin-top: 10px;
+        }
+
+        .modal {
+            display: none;
+            /* Ẩn modal theo mặc định */
+            position: fixed;
+            /* Đặt modal ở vị trí cố định */
+            z-index: 1;
+            /* Đặt z-index cao hơn để nó nằm trên các phần tử khác */
+            left: 0;
+            top: 0;
+            width: 100%;
+            /* Chiếm toàn bộ chiều rộng */
+            height: 100%;
+            /* Chiếm toàn bộ chiều cao */
+            overflow: auto;
+            /* Bật cuộn nếu cần */
+            background-color: rgba(0, 0, 0, 0.5);
+            /* Nền tối cho modal */
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto;
+            /* Căn giữa modal */
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            /* Chiều rộng của modal */
+            border-radius: 8px;
+            /* Bo tròn góc */
+        }
+
+        .close {
+            color: #aaa;
+            /* Màu chữ của nút đóng */
+            float: right;
+            /* Đặt nút đóng ở góc phải */
+            font-size: 28px;
+            /* Kích thước chữ cho nút đóng */
+            font-weight: bold;
+            /* Đậm chữ cho nút đóng */
+        }
+
+        .selected-template {
+            cursor: pointer;
+            transition: transform 0.3s, border 0.3s;
+            border: 2px solid transparent;
+            padding: 5px;
+            border-radius: 8px;
+        }
+
+        .selected-template:hover {
+            transform: scale(1.05);
+            border: 2px solid #007bff;
+            /* Màu viền khi hover */
+        }
+
+        .selected {
+            border: 3px solid #28a745;
+            /* Màu viền khi được chọn */
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            /* Đổi màu khi hover */
+            text-decoration: none;
+            /* Không có gạch chân */
+            cursor: pointer;
+            /* Con trỏ chuột thay đổi khi hover */
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark shadow-sm">
+        <div class="container-fluid">
+            <img class="logo" src="./White and Blue Modern Gift Logo.png" alt="">
+            <a class="navbar-brand" href="index.html">JoyfulBox</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Trang chủ</a></li>
+                    <li class="nav-item"><a class="nav-link" href="products.html">Sản phẩm</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="custom-gifts.html">Tạo hộp quà</a></li>
+                    <li class="nav-item"><a class="nav-link" href="about.html">Giới thiệu</a></li>
+                    <li class="nav-item"><a class="nav-link" href="contact.html">Liên hệ</a></li>
+                    <li class="nav-item">
+                        <a class="nav-link " href="cart.html">
+                            <i class="fas fa-shopping-cart"></i>
+                        </a>
+                    </li>
+                    <li class="nav-item"><a class="nav-link" href="login.html">Đăng nhập</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="container mt-5">
+        <h1 class="text-center mb-4">Tạo hộp quà của bạn</h1>
+        <ul class="nav nav-tabs mb-4">
+            <li class="nav-item">
+                <a class="nav-link active" id="step1-tab" data-bs-toggle="tab" href="#step1">Bước 1: Chọn sản phẩm</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="step2-tab" data-bs-toggle="tab" href="#step2">Bước 2: Chọn Hộp quà tặng</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="step3-tab" data-bs-toggle="tab" href="#step3">Bước 3: Thêm tin nhắn cá nhân</a>
+            </li>
+        </ul>
+        <div class="tab-content">
+            <div class="tab-pane fade show active" id="step1">
+                <div class="row">
+                    <div class="col-md-6 product-container">
+                        <h3>Chọn sản phẩm</h3>
+                        <div class="product-card">
+                            <img src="./img/{6C17B0B6-5947-4C5F-A9C4-3E063525E632}.png" alt="Product 1"
+                                class="product-img">
+                            <div class="product-description">
+                                <p>Gấu bông nhỏ</p>
+                                <p class="product-price">Giá: 30.000VND</p>
+                                <label for="product1-quantity">Số lượng:</label>
+                                <input type="number" value="0" min="0" id="product1-quantity" class="product-quantity"
+                                    onchange="updateSelectedProducts()">
+                            </div>
+                        </div>
+
+                        <div class="product-card">
+                            <img src="./img/{2ED51C8D-48F9-4CFC-95C3-7599F5E940FB}.png" alt="Product 2"
+                                class="product-img">
+                            <div class="product-description">
+                                <p>Mặt nạ Hoa hồng - Innisfree</p>
+                                <p class="product-price">Giá: 25.000VND</p>
+                                <label for="product2-quantity">Số lượng:</label>
+                                <input type="number" value="0" min="0" id="product2-quantity" class="product-quantity"
+                                    onchange="updateSelectedProducts()">
+                            </div>
+                        </div>
+
+                        <div class="product-card">
+                            <img src="./img/{0DECDD7F-BA56-411C-B3E7-80007C1CC085}.png" alt="Product 3"
+                                class="product-img">
+                            <div class="product-description">
+                                <p>Kẹp tóc</p>
+                                <p class="product-price">Giá: 17.000VND</p>
+                                <label for="product3-quantity">Số lượng:</label>
+                                <input type="number" value="0" min="0" id="product3-quantity" class="product-quantity"
+                                    onchange="updateSelectedProducts()">
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="col-md-6">
+                        <h3>Sản phẩm được chọn</h3>
+                        <div id="selected-products" class="selected-summary">
+                            <h5>Chưa có sản phẩm nào được chọn.</h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-center">
+                    <button class="btn btn-primary next" onclick="goToStep(2)">Bước tiếp theo</button>
+                </div>
+            </div>
+            <div class="tab-pane fade" id="step2">
+                <div class="row">
+                    <div class="col-md-6 product-container">
+                        <h3>Chọn hộp quà tặng</h3>
+                        <div class="product-card">
+                            <img src="./img/{D33BB6EE-2DF7-4769-84DB-6056080BA712}.png" alt="Gift Box 1"
+                                class="gift-box-img">
+                            <div class="product-description">
+                                <p style="font-weight: bold;">Hộp Valentine</p>
+                                <p class="product-price">Giá: 19.000VND</p>
+                                <label>
+                                    <input type="radio" name="giftBox" value="Gift Box 1"
+                                        onchange="updateSelectedGiftBox('Hộp Valentine')"> Chọn
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="product-card">
+                            <img src="./img/{334A8720-2B5C-4960-A5AC-8397B1DF50C9}.png" alt="Gift Box 2"
+                                class="gift-box-img">
+                            <div class="product-description">
+                                <p style="font-weight: bold;">Hộp sinh nhật</p>
+                                <p class="product-price">Giá: 19.000VND</p>
+                                <label>
+                                    <input type="radio" name="giftBox" value="Gift Box 2"
+                                        onchange="updateSelectedGiftBox('Hộp sinh nhật')"> Lựa chọn
+                                </label>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="col-md-6">
+                        <h3>Hộp quà đã chọn</h3>
+                        <div id="selected-gift-box" class="selected-summary">
+                            <h5>Chưa có hộp quà nào được chọn.</h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-center">
+                    <button class="btn btn-secondary next" onclick="goToStep(1)">Bước trước</button>
+                    <button class="btn btn-primary next" onclick="goToStep(3)">Bước tiếp theo</button>
+                </div>
+            </div>
+            <div class="tab-pane fade" id="step3">
+                <h3>Thêm tin nhắn cá nhân</h3>
+
+                <!-- Chọn mẫu thư bằng hình ảnh -->
+                <div class="mb-3">
+                    <h5>Chọn mẫu thư:</h5>
+                    <p class="template-price">Giá: 5.000VND</p>
+
+                    <div class="d-flex flex-wrap">
+                        <div class="card m-2" style="width: 150px;" onclick="selectTemplate('template1')">
+                            <img src="./img/{360B4D7D-6C13-4B00-8EE5-ED66C07974BD}.png"
+                                class="card-img-top selected-template" id="template1" alt="Mẫu thư 1">
+
+                        </div>
+                        <div class="card m-2" style="width: 160px;" onclick="selectTemplate('template2')">
+                            <img src="./img/{9C6F7DF3-AAEB-4E92-9531-1CC50DB1179D}.png"
+                                class="card-img-top selected-template" id="template2" alt="Mẫu thư 2">
+
+                        </div>
+                        <div class="card m-2" style="width: 170px;" onclick="selectTemplate('template3')">
+                            <img src="./img/{C431CD5B-3D66-4782-853B-69AA06FAB7AD}.png"
+                                class="card-img-top selected-template" id="template3" alt="Mẫu thư 3">
+                        </div>
+                        <div class="card m-2" style="width: 150px;" onclick="selectTemplate('template4')">
+                            <img src="./img/{6453B321-A3F6-46C5-9725-83FF86C88115}.png"
+                                class="card-img-top selected-template" id="template4" alt="Mẫu thư 4">
+
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- Ô nhập tin nhắn cá nhân -->
+                <textarea class="form-control custom-message" rows="4" id="personal-message"
+                    placeholder="Viết tin nhắn của bạn ở đây..."></textarea>
+
+                <div class="text-center mt-3">
+                    <button class="btn btn-secondary next" onclick="goToStep(2)">Bước trước</button>
+                    <button class="btn btn-success next" onclick="submitGift()">Gửi quà tặng</button>
+                </div>
+            </div>
+
+            <div id="giftModal" class="modal">
+                <div class="modal-content">
+                    <span class="close" onclick="closeModal()">&times;</span>
+                    <h2>Gửi quà tặng</h2>
+                    <div id="modal-message"></div>
+                    <button onclick="closeModal()">Đóng</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container footer-info">
+            <div class="row">
+                <div class="col-lg-4 footer-section">
+                    <h5>Giới thiệu về chúng tôi</h5>
+                    <p>JoyfulBox cam kết cung cấp trải nghiệm tặng quà tốt nhất có thể. Chúng tôi tuyển chọn các sản
+                        phẩm chất lượng và đảm bảo giao hàng đúng hạn.</p>
+                </div>
+                <div class="col-lg-4 footer-section">
+                    <h5>Theo dõi chúng tôi</h5>
+                    <div class="social-icons">
+                        <a href="https://www.facebook.com/people/Joyful-Box/100086913023201/"><i
+                                class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="https://www.tiktok.com/@joyful.box1?_r=1&_d=secCgYIASAHKAESPgo87BHbyXWBdKTrdOlEx0hIS%2BG1LEk7CEaQJ9pnpyx%2BflMo2ogCr23NaWp2hcm%2B81YC3GOnVkElwitIHLq1GgA%3D&checksum=54b359d9a737dd7b138912e9687d3a1f974ab564ab22b203f1e258ca609a4cb3&sec_uid=MS4wLjABAAAA0FFiIPCj2VOUrZ7ENOromtCHh9JSp9zfBPZ5XHqLzmYAgPqO79f90W3b86qc8GYP&sec_user_id=MS4wLjABAAAA0FFiIPCj2VOUrZ7ENOromtCHh9JSp9zfBPZ5XHqLzmYAgPqO79f90W3b86qc8GYP&share_app_id=1180&share_author_id=7393356500091307014&share_link_id=EB95AB2A-7B63-4BC4-B4EE-182E00946D7E&sharer_language=vi&social_share_type=4&source=h5_t&timestamp=1730379310&tt_from=copy&u_code=ef8c4g3gkfg6h8&ug_btm=b8727%2Cb0&user_id=7393356500091307014&utm_campaign=client_share&utm_medium=ios&utm_source=copy"
+                            target="_blank"><i class="fab fa-tiktok"></i></a>
+                        <a href="https://www.pinterest.com/" target="_blank"><i class="fab fa-pinterest"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-4 footer-section">
+                    <h5>Liên hệ với chúng tôi</h5>
+                    <p>Email: support@JoyfulBox.com</p>
+                    <p>Điện thoại: +1 (800) 123-4567</p>
+                </div>
+            </div>
+        </div>
+        <div class="text-center py-4">
+            <p>&copy;2024 JoyfulBox. Bảo lưu mọi quyền.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        window.addEventListener("scroll", function () {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 10) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Modal HTML -->
+    <div id="giftModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <div id="modal-message"></div>
+        </div>
+    </div>
+    <script>
+        const selectedProducts = [];
+        const selectedGiftBox = {
+            name: null,
+            price: 0
+        };
+        let selectedTemplateImage = ''; // Biến lưu URL hình ảnh của thiệp đã chọn
+        const templatePrice = 5; // Giả sử giá mẫu thiệp là 15.000 VND
+    
+        function updateSelectedProducts() {
+            const products = [
+                { id: 'product1', name: 'Gấu bông nhỏ', price: 30 },
+                { id: 'product2', name: 'Mặt nạ hoa hồng', price: 25 },
+                { id: 'product3', name: 'Kẹp tóc', price: 17 }
+            ];
+            selectedProducts.length = 0;
+    
+            products.forEach(product => {
+                const quantity = parseInt(document.getElementById(`${product.id}-quantity`).value, 10) || 0;
+                if (quantity > 0) {
+                    selectedProducts.push({
+                        name: product.name,
+                        quantity: quantity,
+                        price: product.price,
+                        total: product.price * quantity
+                    });
+                }
+            });
+    
+            displaySelectedProducts();
+        }
+    
+        function displaySelectedProducts() {
+            const selectedProductsDiv = document.getElementById('selected-products');
+            selectedProductsDiv.innerHTML = '';
+    
+            if (selectedProducts.length === 0) {
+                selectedProductsDiv.innerHTML = '<h5>Chưa có sản phẩm nào được chọn.</h5>';
+            } else {
+                selectedProducts.forEach(product => {
+                    selectedProductsDiv.innerHTML += `<p>${product.name} - Số lượng: ${product.quantity} - Tổng: ${product.total.toFixed(3)} VND</p>`;
+                });
+            }
+        }
+    
+        function updateSelectedGiftBox(giftBox) {
+            selectedGiftBox.name = giftBox;
+            const giftBoxPrice = giftBox.includes('1') ? 19 : 19; // Bạn có thể điều chỉnh giá tùy theo loại hộp quà
+            selectedGiftBox.price = giftBoxPrice;
+            displaySelectedGiftBox();
+        }
+    
+        function displaySelectedGiftBox() {
+            const selectedGiftBoxDiv = document.getElementById('selected-gift-box');
+            selectedGiftBoxDiv.innerHTML = '';
+    
+            if (selectedGiftBox.name) {
+                selectedGiftBoxDiv.innerHTML = `<p>${selectedGiftBox.name} - Giá: ${selectedGiftBox.price.toFixed(3)} VND</p>`;
+            } else {
+                selectedGiftBoxDiv.innerHTML = '<h5>Chưa có hộp quà nào được chọn.</h5>';
+            }
+        }
+    
+        function selectTemplate(templateId) {
+            document.querySelectorAll('.selected-template').forEach(img => img.style.border = 'none');
+            const selectedImage = document.getElementById(templateId);
+            selectedImage.style.border = '2px solid #007bff';
+            selectedTemplateImage = selectedImage.src; // Lưu URL của thiệp đã chọn
+        }
+    
+        function goToStep(step) {
+            const tab = new bootstrap.Tab(document.getElementById(`step${step}-tab`));
+            tab.show();
+        }
+    
+        function submitGift() {
+            const message = document.getElementById('personal-message').value;
+    
+            const totalAmount = selectedProducts.reduce((total, product) => {
+                const quantity = Number(product.quantity) || 0;
+                return total + (product.price * quantity);
+            }, 0);
+    
+            const productsList = selectedProducts.map(product =>
+                `<li>${product.name} - Số lượng: ${product.quantity} - Tổng: ${product.total.toFixed(3)} VND</li>`
+            ).join('');
+    
+            // Chỉ cộng thêm giá mẫu thiệp nếu đã chọn
+            const totalWithGiftBoxAndTemplate = totalAmount + selectedGiftBox.price + (selectedTemplateImage ? templatePrice : 0);
+    
+            const modalMessage = `
+                <p><strong>Sản phẩm:</strong></p>
+                <ul>${productsList}</ul>
+                <p><strong>Hộp quà:</strong> ${selectedGiftBox.name} - Giá: ${selectedGiftBox.price.toFixed(3)} VND</p>
+                <p><strong>Tin nhắn:</strong> ${message}</p>
+                <p><strong>Tổng số tiền:</strong> ${totalWithGiftBoxAndTemplate.toFixed(3)} VND</p>
+                <p><strong>Mẫu đã chọn:</strong></p>
+                <img src="${selectedTemplateImage}" alt="Thiệp đã chọn" style="width: 150px; border: 1px solid #ddd;">
+            `;
+    
+            document.getElementById('modal-message').innerHTML = modalMessage;
+            document.getElementById('giftModal').style.display = "block";
+        }
+    
+        function closeModal() {
+            document.getElementById('giftModal').style.display = "none";
+        }
+    
+        window.onclick = function (event) {
+            const modal = document.getElementById('giftModal');
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+    
+        function selectTemplate(templateId) {
+            // Bỏ lớp 'selected' khỏi tất cả các mẫu
+            document.querySelectorAll('.selected-template').forEach(img => {
+                img.classList.remove('selected');
+            });
+    
+            // Thêm lớp 'selected' vào mẫu được chọn
+            document.getElementById(templateId).classList.add('selected');
+            selectedTemplateImage = document.getElementById(templateId).src;
+        }
+    </script>
+    
+
+</body>
+
+</html>
