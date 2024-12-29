@@ -247,7 +247,123 @@
             color: #ffffff;
             transform: rotate(15deg);
         }
+
+        /* Cấu trúc của div chứa các nút */
+        .product-quantity-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto;
+        }
+
+        /* Nút - và + */
+        .btn-minus,
+        .btn-plus,
+        .btn-remove {
+            background-color: #f8f8f8;
+            color: #333;
+            padding: 8px 16px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 18px;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Nút - */
+        .btn-minus {
+            color: #e74c3c;
+            background-color: #fff;
+        }
+
+        /* Nút + */
+        .btn-plus {
+            color: #2ecc71;
+            background-color: #fff;
+        }
+
+        /* Nút x */
+        .btn-remove {
+            color: #f39c12;
+            background-color: #fff;
+            width: 24px;
+            height: 24px;
+            padding: 0;
+            font-size: 18px;
+            border-radius: 50%;
+        }
+
+        /* Hiệu ứng hover */
+        .btn-minus:hover,
+        .btn-plus:hover,
+        .btn-remove:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+            background-color: #f1f1f1;
+        }
+
+        /* Hiệu ứng active */
+        .btn-minus:active,
+        .btn-plus:active,
+        .btn-remove:active {
+            transform: scale(0.95);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Căn giữa số lượng */
+        .product-quantity {
+            font-weight: 600;
+            margin: 0 12px;
+            font-size: 18px;
+            color: #333;
+            text-align: center;
+        }
+
+        /* Đảm bảo căn giữa hoàn toàn trong table */
+        .product-quantity-container {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto;
+            padding: 0;
+        }
+
+        /* Đảm bảo các cột trong bảng căn chỉnh chính xác */
+        table {
+            width: 100%;
+            border-spacing: 0;
+        }
+
+        /* Căn giữa các giá trị trong các ô */
+        td {
+            padding: 12px 15px;
+            text-align: center;
+            font-size: 16px;
+            color: #333;
+        }
+
+        /* Cải thiện giao diện bảng */
+        thead th {
+            padding: 12px 15px;
+            text-align: center;
+            font-size: 16px;
+            color: #333;
+            font-weight: bold;
+            background: #f4f6fa;
+            border-bottom: 2px solid #ddd;
+        }
+
+        /* Căn giữa container */
+        .product-quantity-container {
+            margin: 0 auto;
+            padding: 0;
+        }
     </style>
+
 </head>
 
 <body>
@@ -292,9 +408,16 @@
             <tbody>
                 <tr>
                     <td>Sản phẩm 1</td>
-                    <td>1</td>
+                    <td>
+                        <div class="product-quantity-container">
+                            <button class="btn-minus">-</button>
+                            <span class="product-quantity">1</span>
+                            <button class="btn-plus">+</button>
+                        </div>
+                    </td>
                     <td>10.000VND</td>
                     <td>10.000VND</td>
+                    <td><button class="btn-remove">x</button></td>
                 </tr>
                 <tr>
                     <td>Sản phẩm 2</td>
