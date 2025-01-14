@@ -1,0 +1,131 @@
+<div class=" mt-5">
+        <h1 class="text-center mb-4">Tạo hộp quà của bạn</h1>
+        <ul class=" container nav nav-tabs mb-4">
+            <li class="nav-item">
+                <a class="nav-link active" id="step1-tab" data-bs-toggle="tab" href="">Bước 1: Chọn sản phẩm</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="step2-tab" data-bs-toggle="tab" href="/custom-gifts/box">Bước 2: Chọn Hộp quà tặng</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="step3-tab" data-bs-toggle="tab" href="/custom-gifts/mes">Bước 3: Thêm tin nhắn cá nhân</a>
+            </li>
+        </ul>
+
+    <div class=" container tab-content">
+            <div class="tab-pane fade show active" id="step1">
+
+            <div class="row">
+                        <h3>Chọn sản phẩm</h3>
+            {{#if products.length}}
+  {{#each products}}
+    <div class="col-md-6 product-container">
+      <div class="product-card">
+        <img src="{{this.image}}" alt="{{this.name}}" class="product-img">
+        <div class="product-description">
+          <p>{{this.name}}</p>
+          <p class="product-price">Giá: {{this.price}}</p>
+          <div class="product-quantity-container">
+            <input type="hidden" class="item-id" value="{{this._id}}">
+            <button class="btn-minus" data-action="subtract" data-product-id="{{this._id}}">-</button>
+            <span class="quantity-display" data-product-id="{{this._id}}">
+              {{findQuantity customBox.items this._id}}
+            </span>
+            <button class="btn-plus" data-action="add" data-product-id="{{this._id}}">+</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  {{/each}}
+{{else}}
+  <p>Hiện tại không có sản phẩm trong kho</p>
+{{/if}}
+
+
+
+{{log customBox.items}}
+
+
+
+                    <div class="col-md-6">
+                        <h3>Sản phẩm được chọn</h3>
+                        <div id="selected-products" class="selected-summary">
+                            <h5>Chưa có sản phẩm nào được chọn.</h5>
+                        </div>
+                    </div>
+                    <div class="text-center"><a href="/custom-gifts/box">
+
+                    <button class="btn btn-primary next" onclick="goToStep(2)">Bước tiếp theo</button>
+
+                    </a>
+                </div>
+                </div>
+
+                  </div>
+    </div>
+    
+
+    <script>
+document.querySelectorAll(".btn-minus").forEach((button) => {
+  button.addEventListener("click", async (event) => {
+    const container = event.target.closest(".product-quantity-container");
+    const itemId = container.querySelector(".item-id").value;
+
+    try {
+      const response = await fetch("/custom-gifts/minus", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ itemId }),
+      });
+
+      const result = await response.json();
+
+      if (result.success) {
+        const quantityDisplay = container.querySelector(".quantity-display");
+        const updatedItem = result.customBox.items.find(
+          (item) => item.productId._id === itemId
+        );
+        quantityDisplay.textContent = updatedItem ? updatedItem.quantity : 0;
+      } else {
+        alert(result.message);
+      }
+    } catch (error) {
+      console.error("Error:", error);
+      alert("Có lỗi xảy ra.");
+    }
+  });
+});
+
+document.querySelectorAll(".btn-plus").forEach((button) => {
+  button.addEventListener("click", async (event) => {
+    const container = event.target.closest(".product-quantity-container");
+    const itemId = container.querySelector(".item-id").value;
+
+    try {
+      const response = await fetch("/custom-gifts/plus", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ itemId }),
+      });
+
+      const result = await response.json();
+
+      if (result.success) {
+        const quantityDisplay = container.querySelector(".quantity-display");
+        const updatedItem = result.customBox.items.find(
+          (item) => item.productId._id === itemId
+        );
+        quantityDisplay.textContent = updatedItem ? updatedItem.quantity : 0;
+      } else {
+        alert(result.message);
+      }
+    } catch (error) {
+      console.error("Error:", error);
+      alert("Có lỗi xảy ra.");
+    }
+  });
+});
+
+
+
+    </script>

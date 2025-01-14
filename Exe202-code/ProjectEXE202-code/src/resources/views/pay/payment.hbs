@@ -1,0 +1,53 @@
+<div class="modal fade show" id="paymentModal" tabindex="-1" aria-labelledby="paymentModalLabel" style="display: block;">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="paymentModalLabel">Chọn phương thức thanh toán</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Chọn phương thức thanh toán bạn muốn:</p>
+                <div class="d-flex justify-content-around mt-4">
+                    <div id="qrBtn" class="payment-option">
+                        <img src="./906232d07a04c25a9b15.jpg" alt="QR Code" style="width: 50px;">
+                        <p>QR Code</p>
+                    </div>
+                    <div id="cashBtn" class="payment-option">
+                        <i class="fas fa-money-bill-alt fa-2x"></i>
+                        <p>Thanh toán khi nhận hàng</p>
+                    </div>
+                </div>
+
+                <!-- QR Code Payment Option -->
+                <div id="qrSection" class="text-center">
+                    <p>Quét mã QR để hoàn tất thanh toán:</p>
+                    <img src="./906232d07a04c25a9b15.jpg" alt="QR Code" class="img-fluid mx-auto d-block" style="max-width: 200px;">
+                </div>
+
+                <!-- Cash on Delivery Form -->
+                <form id="cashForm" class="mt-4">
+                    <div class="mb-3">
+                        <label for="name" class="form-label">Tên</label>
+                        <input type="text" class="form-control" id="name" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="phone" class="form-label">Số điện thoại</label>
+                        <input type="tel" class="form-control" id="phone" required pattern="[0-9]{10}">
+                    </div>
+                    <div class="mb-3">
+                        <label for="address" class="form-label">Địa chỉ</label>
+                        <input type="text" class="form-control" id="address" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Email</label>
+                        <input type="email" class="form-control" id="email" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100 mt-3">Xác nhận đơn hàng</button>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+            </div>
+        </div>
+    </div>
+</div>

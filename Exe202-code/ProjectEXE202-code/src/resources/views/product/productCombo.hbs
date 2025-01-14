@@ -1,0 +1,222 @@
+
+
+  <style>
+    body { font-family: 'Poppins', sans-serif; background-color: #f8f9fa; } h1,
+    h2, h3 { color: #343a40; font-weight: 700; } p { color: #495057;
+    line-height: 1.6; } .navbar { background-color: #343a40; transition:
+    background-color 0.3s; position: sticky; top: 0; z-index: 1000; }
+    .navbar.scrolled { background-color: #343a40; } .navbar .nav-link { color:
+    white; padding: 15px 20px; transition: color 0.3s; } .navbar .nav-link:hover
+    { color: #ffc107; } .nav-item { margin-left: 20px; } .section { padding:
+    60px 20px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); }
+    .about-section { background-color: #ffffff; } .featured-section {
+    background-color: #e9ecef; } .card { border: none; border-radius: 10px;
+    overflow: hidden; transition: transform 0.2s; } .card:hover { transform:
+    scale(1.05); } .card-title { font-weight: bold; color: #343a40; }
+    .btn-primary { background-color: #ffc107; border: none; transition:
+    background-color 0.3s; } .btn-primary:hover { background-color: #e0a800; }
+    .search-container { margin: 20px 0; display: flex; justify-content: center;
+    } .search-container input { width: 300px; } .card-img-top { height: 200px;
+    object-fit: cover; transition: transform 0.3s; } .card-img-top:hover {
+    transform: scale(1.1); } footer { background-color: #2c3e50; color: #ffffff;
+    padding: 40px 0; text-align: center; } .footer-info h5 { color: #ffcf8b; }
+    .footer-section h5 { border-bottom: 2px solid #ffcf8b; padding-bottom: 10px;
+    margin-bottom: 20px; } .social-icons a { color: #ffcf8b; font-size: 24px;
+    margin: 0 15px; transition: color 0.3s, transform 0.3s; } .social-icons
+    a:hover { color: #ffffff; transform: rotate(15deg); } @media (max-width:
+    768px) { .navbar .nav-item { margin-left: 10px; } } .logo { width: 50px;
+    border-radius: 100%; margin-right: 10px; } .nav-link.active { color:
+    #ffffff; font-weight: 700; border-bottom: 2px solid #ffc107;
+    background-color: rgba(255, 193, 7, 0.2); border-radius: 5px; padding: 12px
+    20px; transition: background-color 0.3s, color 0.3s; box-shadow: 0 2px 6px
+    rgba(0, 0, 0, 0.1); } .search-container { display: flex; justify-content:
+    center; margin: 20px 0; } .search-container input { max-width: 500px; width:
+    100%; margin-right: 10px; } /* Product card display */ .product-card {
+    display: none; } .product-card.visible { display: block; }
+  </style>
+
+  <body>
+
+    <div class="container py-5">
+      <h1 class="text-center mb-4">Sản phẩm của chúng tôi</h1>
+
+      <!-- Search Bar -->
+      <div class="search-container container">
+        <input
+          id="searchInput"
+          class="form-control"
+          type="text"
+          placeholder="Search for products"
+          aria-label="Search"
+        />
+        <button class="btn btn-outline-warning" onclick="searchProducts()">Tìm
+          kiếm</button>
+      </div>
+      <!-- Tabs for Products -->
+      <ul class="nav nav-tabs justify-content-center mb-4">
+        <li class="nav-item">
+            <a href="/product/productShow">
+
+          <button
+            class="nav-link "
+            onclick="showProducts('regular')"
+            style="color: black;"
+          >Sản phẩm thông thường</button>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="/product/combo">
+          <button
+            class="nav-link active"
+            onclick="showProducts('combo')"
+            style="color: black;"
+          >Các sản phẩm combo</button>
+          </a>
+        </li>
+      </ul>
+
+      <!-- Combo Products Section -->
+      <div class="container py-4 product-section">
+    <h2 class="text-center mt-3 mb-0 ">Các sản phẩm combo</h2>
+
+    <!-- Cart Info -->
+    <div id="cart-info" hidden>
+        <p>Tổng số lượng: <span id="total-quantity">{{cart.totalQuantity}}</span></p>
+        <p>Tổng giá: <span id="total-price">{{cart.totalPrice}}</span></p>
+    </div>
+      </div>
+    <!-- Combo List -->
+    <div class="row">
+        {{#each combos}}
+        <div class="col-md-4 mb-4">
+            <div class="card">
+                <a href="/product/{{this.slug}}">
+                    <img src="{{this.image}}" class="card-img-top" alt="Product Image">
+                </a>
+                <div class="card-body">
+                    <a href="/product/{{this.slug}}">
+                        <h5 class="card-title">{{this.name}}</h5>
+                    </a>
+                    <p class="card-text">{{this.price}} VND</p>
+                    <button 
+                        class="btn btn-primary add-to-cart-btn" 
+                        data-product-id="{{this._id}}">
+                        Thêm vào giỏ hàng
+                    </button>
+                </div>
+            </div>
+        </div>
+        {{/each}}
+    </div>
+</div>
+</body>
+
+    <script>
+      
+        function showProducts(section) {
+            const regularProducts = document.getElementById('regularProducts');
+            const comboProducts = document.getElementById('comboProducts');
+
+            if (section === 'regular') {
+                regularProducts.style.display = 'block';
+                comboProducts.style.display = 'none';
+            } else if (section === 'combo') {
+                regularProducts.style.display = 'none';
+                comboProducts.style.display = 'block';
+            }
+
+            // Remove active class and reset color for all tabs
+            document.querySelectorAll('.nav-tabs .nav-link').forEach(tab => {
+                tab.classList.remove('active');
+                tab.style.color = 'black'; // Đặt lại màu cho tab không active
+            });
+
+            // Add active class and set color to dark red for the active tab
+            const activeTab = document.querySelector(`.nav-tabs .nav-link[onclick="showProducts('${section}')"]`);
+            activeTab.classList.add('active');
+            activeTab.style.color = '#8B0000'; // Màu huyết
+        }
+
+        function searchProducts() {
+            const query = document.getElementById("searchInput").value.toLowerCase();
+            const cards = document.querySelectorAll(".card");
+
+            cards.forEach(card => {
+                const title = card.querySelector(".card-title").textContent.toLowerCase();
+                card.parentElement.style.display = title.includes(query) ? "block" : "none";
+            });
+        }
+
+        window.onscroll = function () {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        };
+
+         const cartInfo = document.getElementById('cart-info');
+  
+
+
+ 
+document.addEventListener('DOMContentLoaded', () => {
+    const addToCartButtons = document.querySelectorAll('.add-to-cart-btn');
+    if (!addToCartButtons.length) {
+        console.error("No 'Add to Cart' buttons found");
+        return;
+    }
+
+    addToCartButtons.forEach(button => {
+        button.addEventListener('click', async () => {
+            const comboId = button.getAttribute('data-product-id');
+
+            if (!comboId) {
+                alert('Không thể thêm sản phẩm vào giỏ hàng. Mã combo không hợp lệ!');
+                return;
+            }
+
+            try {
+                const response = await fetch('/cart/add-to-cart/combo', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ comboId }),
+                });
+
+                if (response.status === 401) {
+                    window.location.href = '/account';
+                    return;
+                }
+
+                const data = await response.json();
+                if (data.success) {
+                    const { totalQuantity, totalPrice } = data.cart;
+
+                    const totalQuantityElement = document.getElementById('total-quantity');
+                    const totalPriceElement = document.getElementById('total-price');
+
+                    if (totalQuantityElement) totalQuantityElement.textContent = totalQuantity;
+                    if (totalPriceElement) totalPriceElement.textContent = totalPrice;
+
+                    button.textContent = 'Đã thêm!';
+                    button.classList.add('btn-success');
+                    setTimeout(() => {
+                        button.textContent = 'Thêm vào giỏ hàng';
+                        button.classList.remove('btn-success');
+                    }, 1000);
+                } else {
+                    alert(data.message || 'Đã xảy ra lỗi. Vui lòng thử lại!');
+                }
+            } catch (error) {
+                console.error("Error adding to cart:", error);
+                alert('Không thể thêm sản phẩm vào giỏ hàng. Vui lòng thử lại!');
+            }
+        });
+    });
+});
+
+
+
+    </script>
+  

@@ -1,0 +1,59 @@
+<div class=" mt-5">
+        <h1 class="text-center mb-4">Tạo hộp quà của bạn</h1>
+
+        <ul class=" container nav nav-tabs mb-4">
+            <li class="nav-item">
+                <a class="nav-link " id="step1-tab" data-bs-toggle="tab" href="/custom-gifts">Bước 1: Chọn sản phẩm</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link " id="step2-tab" data-bs-toggle="tab" href="/custom-gifts/box">Bước 2: Chọn Hộp quà tặng</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link active" id="step3-tab" data-bs-toggle="tab" href="/custom-gifts/mes">Bước 3: Thêm tin nhắn cá nhân</a>
+            </li>
+        </ul>
+
+    <div class="container tab-content">
+        <!-- Tab 2 -->
+        <div class="tab-pane fade show active" id="step3">
+                <h3>Thêm tin nhắn cá nhân</h3>
+
+                <!-- Chọn mẫu thư bằng hình ảnh -->
+                <div class="mb-3">
+                    <h5>Chọn mẫu thư:</h5>
+                    <p class="template-price">Giá: 5.000VND</p>
+
+                    <div class="d-flex flex-wrap">
+                     {{#if mess.length}}
+                    {{#each mess}}
+                        <div class="card m-2" style="width: 150px;" onclick="selectTemplate('template1')">
+                            <img src="{{this.image}}"
+                                class="card-img-top selected-template" id="template1" alt="Mẫu thư 1">
+
+                        </div>
+                     {{/each}}
+                    {{else}}
+                <p>Thiệp đang hết trong kho</p>
+                    {{/if}}
+                       
+
+                    </div>
+                </div>
+
+                <!-- Ô nhập tin nhắn cá nhân -->
+                <textarea class="form-control custom-message" rows="4" id="personal-message"
+                    placeholder="Viết tin nhắn của bạn ở đây..."></textarea>
+
+                <div class="text-center mt-3">
+                    <a href="/custom-gifts/box">
+                    <button class="btn btn-secondary next" onclick="goToStep(2)">Bước trước</button>
+                    
+                    </a>
+                    <button class="btn btn-success next" onclick="submitGift()">Gửi quà tặng</button>
+                </div>
+            </div>
+    </div>
+    </div>
+    
+
+    

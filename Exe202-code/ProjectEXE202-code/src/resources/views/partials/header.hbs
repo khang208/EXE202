@@ -1,0 +1,75 @@
+{{! 
+<nav class="navbar navbar-expand-lg navbar-dark shadow-sm">
+        <div class="container-fluid"> <img class="logo" src="./White and Blue Modern Gift Logo.png" alt="">
+
+            <a class="navbar-brand" href="index.html">JoyfulBox</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link active" href="index.html">Trang chủ</a></li>
+                    <li class="nav-item"><a class="nav-link" href="">Sản phẩm</a></li>
+                    <li class="nav-item"><a class="nav-link" href="custom-gifts.html">Tạo hộp quà</a></li>
+                    <li class="nav-item"><a class="nav-link" href="about.html">Giới thiệu</a></li>
+                    <li class="nav-item"><a class="nav-link" href="contact.html">Liên hệ</a></li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="cart.html">
+                            <i class="fas fa-shopping-cart"></i>
+                        </a>
+                    </li>
+                    <li class="nav-item"><a class="nav-link" href="login.html">Đăng nhập</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+     }}
+
+<nav class="navbar navbar-expand-lg navbar-dark shadow-sm">
+  <div class="container-fluid">
+    <img
+      class="logo"
+      src="/src/public/img/Logo.png"
+      alt="logo"
+    />
+
+    <a class="navbar-brand" href="/">JoyfulBox</a>
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarNav"
+      aria-controls="navbarNav"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item"><a class="nav-link active" href="/">Trang chủ</a></li>
+        <li class="nav-item"><a class="nav-link" href="/product/productShow">Sản
+            phẩm</a></li>
+        <li class="nav-item"><a class="nav-link" href="/custom-gifts">Tạo
+            hộp quà</a></li>
+        <li class="nav-item"><a class="nav-link" href="about.html">Giới thiệu</a></li>
+        <li class="nav-item"><a class="nav-link" href="contact.html">Liên hệ</a></li>
+        <li class="nav-item">
+          <a class="nav-link" href="/cart">
+            <i class="fas fa-shopping-cart"></i>
+            <div class="cart-summary">
+            </div>
+          </a>
+        </li>
+        <li>
+              <div style="color: red;" id="cart-count">{{cartCount}}</div>
+
+        </li>
+        <li class="nav-item"><a class="nav-link" href="/account">Đăng nhập</a></li>
+        <a href="/account/logout">logout</a>
+      </ul>
+    </div>
+  </div>
+</nav>

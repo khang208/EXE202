@@ -1,0 +1,47 @@
+{
+  "name": "blog",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/index.js",
+  "scripts": {
+    "beautiful": "prettier --write --single-quote --trailing-comma all --tab-width 4 src/**/*.{js,json,scss}",
+    "start": "nodemon --inspect src/index.js",
+    "watch": "node-sass --watch src/resources/scss/app.scss --output src/public/css/",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "khang",
+  "license": "ISC",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.20.3",
+    "circular-json": "^0.5.9",
+    "connect-flash": "^0.1.1",
+    "cors": "^2.8.5",
+    "express": "^4.21.2",
+    "express-handlebars": "^7.1.2",
+    "express-session": "^1.18.1",
+    "method-override": "^3.0.0",
+    "mongoose": "^8.9.5",
+    "mongoose-delete": "^1.0.2",
+    "mongoose-sequence": "^6.0.1",
+    "mongoose-slug-generator": "^1.0.4",
+    "scss": "^0.2.4"
+  },
+  "lint-staged": {
+    "src/**/*.{js,json,scss}": "prettier --write --single-quote --trailing-comma all --tab-width 4"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "devDependencies": {
+    "generator": "^0.0.4",
+    "husky": "^9.1.5",
+    "lint-staged": "^15.2.10",
+    "morgan": "^1.10.0",
+    "node-sass": "^9.0.0",
+    "prettier": "^3.3.3",
+    "slug": "^9.1.0"
+  }
+}

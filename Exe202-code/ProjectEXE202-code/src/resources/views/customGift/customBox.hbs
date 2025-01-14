@@ -1,0 +1,63 @@
+<div class=" mt-5">
+        <h1 class="text-center mb-4">Tạo hộp quà của bạn</h1>
+
+        <ul class=" container nav nav-tabs mb-4">
+            <li class="nav-item">
+                <a class="nav-link " id="step1-tab" data-bs-toggle="tab" href="/custom-gifts">Bước 1: Chọn sản phẩm</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link active" id="step2-tab" data-bs-toggle="tab" href="">Bước 2: Chọn Hộp quà tặng</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="step3-tab" data-bs-toggle="tab" href="/custom-gifts/mes">Bước 3: Thêm tin nhắn cá nhân</a>
+            </li>
+        </ul>
+
+    <div class="container tab-content">
+        <!-- Tab 2 -->
+        <div class="tab-pane fade show active" id="step2">
+            <div class="row">
+                <div class="col-md-6 product-container">
+                    <h3>Chọn hộp quà tặng</h3>
+                    {{#if boxs.length}}
+                    {{#each boxs}}
+                    <div class="product-card">
+                        <img src="{{this.image}}" alt="Gift Box 2" class="gift-box-img">
+                        <div class="product-description">
+                            <p style="font-weight: bold;">{{this.name}}</p>
+                            <p class="product-price">Giá: {{this.price}}</p>
+                            <label>
+                                <input type="radio" name="giftBox" value="Gift Box 2" onchange="updateSelectedGiftBox('Hộp sinh nhật')"> Lựa chọn
+                            </label>
+                        </div>
+                    </div>
+                    {{/each}}
+                    {{else}}
+                <p>Hộp quà đang hết trong kho</p>
+                    {{/if}}
+                </div>
+                <div class="col-md-6">
+                    <h3>Hộp quà đã chọn</h3>
+                    <div id="selected-gift-box" class="selected-summary">
+                        <h5>Chưa có hộp quà nào được chọn.</h5>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center">
+                <a href="/custom-gifts">
+
+                <button class="btn btn-secondary next" onclick="goToStep(1)">Bước trước</button>
+
+                </a>
+                <a href="/custom-gifts/mes">
+
+                <button class="btn btn-primary next" onclick="goToStep(3)">Bước tiếp theo</button>
+
+                </a>
+            </div>
+        </div>
+    </div>
+    </div>
+    
+
+    
