@@ -1,131 +1,345 @@
 <div class=" mt-5">
-        <h1 class="text-center mb-4">Tạo hộp quà của bạn</h1>
-        <ul class=" container nav nav-tabs mb-4">
-            <li class="nav-item">
-                <a class="nav-link active" id="step1-tab" data-bs-toggle="tab" href="">Bước 1: Chọn sản phẩm</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" id="step2-tab" data-bs-toggle="tab" href="/custom-gifts/box">Bước 2: Chọn Hộp quà tặng</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" id="step3-tab" data-bs-toggle="tab" href="/custom-gifts/mes">Bước 3: Thêm tin nhắn cá nhân</a>
-            </li>
-        </ul>
 
-    <div class=" container tab-content">
-            <div class="tab-pane fade show active" id="step1">
 
-            <div class="row">
-                        <h3>Chọn sản phẩm</h3>
-            {{#if products.length}}
-  {{#each products}}
-    <div class="col-md-6 product-container">
-      <div class="product-card">
-        <img src="{{this.image}}" alt="{{this.name}}" class="product-img">
-        <div class="product-description">
-          <p>{{this.name}}</p>
-          <p class="product-price">Giá: {{this.price}}</p>
-          <div class="product-quantity-container">
-            <input type="hidden" class="item-id" value="{{this._id}}">
-            <button class="btn-minus" data-action="subtract" data-product-id="{{this._id}}">-</button>
-            <span class="quantity-display" data-product-id="{{this._id}}">
-              {{findQuantity customBox.items this._id}}
-            </span>
-            <button class="btn-plus" data-action="add" data-product-id="{{this._id}}">+</button>
-          </div>
+  <h1 class="text-center mb-4">Tạo hộp quà của bạn</h1>
+  <ul class=" container nav nav-tabs mb-4">
+
+    <li class="nav-item">
+      <a class="nav-link" id="step1-tab" data-bs-toggle="tab" href="/custom-gifts/gift">Hướng dẫn</a>
+    </li>
+
+
+    <li class="nav-item">
+      <a class="nav-link active" id="step2-tab" data-bs-toggle="tab" href="">Bước 1: Chọn sản phẩm</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" id="step3-tab" data-bs-toggle="tab" href="/custom-gifts/box">Bước 2: Chọn Hộp quà tặng</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" id="step4-tab" data-bs-toggle="tab" href="/custom-gifts/mes">Bước 3: Thêm tin nhắn cá nhân</a>
+    </li>
+  </ul>
+
+
+
+  <div class="container ">
+
+
+    <div class="row justify-content-center">
+      <div class="col-md-6 text-center">
+        <div id="selected-products" class="selected-summary">
+          <h5>Chưa có sản phẩm nào được chọn.</h5>
         </div>
       </div>
     </div>
-  {{/each}}
-{{else}}
-  <p>Hiện tại không có sản phẩm trong kho</p>
-{{/if}}
 
 
-
-{{log customBox.items}}
-
-
-
-                    <div class="col-md-6">
-                        <h3>Sản phẩm được chọn</h3>
-                        <div id="selected-products" class="selected-summary">
-                            <h5>Chưa có sản phẩm nào được chọn.</h5>
-                        </div>
-                    </div>
-                    <div class="text-center"><a href="/custom-gifts/box">
-
-                    <button class="btn btn-primary next" onclick="goToStep(2)">Bước tiếp theo</button>
-
-                    </a>
-                </div>
-                </div>
-
-                  </div>
+    <div class="text-center mt-3">
+      <a href="/custom-gifts/gift">
+        <button class="btn btn-secondary next" onclick="goToStep(1)">Bước trước</button>
+      </a>
+      <a href="/custom-gifts/box">
+        <button class="btn btn-primary next" onclick="goToStep(2)">Bước tiếp theo</button>
+      </a>
     </div>
+
+
+
+
+    <!-- Search Bar -->
+    <div class="container my-3">
+      <div class="input-group">
+        <input id="searchInput" type="text" class="form-control" placeholder="Search for products"
+          aria-label="Search" />
+        <button class="btn btn-outline-warning" onclick="searchProducts()">Tìm kiếm</button>
+      </div>
+    </div>
+
+ 
+
+
+    <!-- Regular Products Section -->
+    <div id="regularProducts" class="product-section" style="display: block;">
+      <h2 class="text-center mt-5 mb-4">Sản phẩm thông thường</h2>
+      <div class="row">
+
+        {{#if products.length}}
+        {{#each products}}
+        <div class="col-md-4 mb-4">
+
+          <div class="card">
+            <img src="{{this.image}}" class="card-img-top" alt="{{this.name}}">
+            <div class="card-body">
+              <h5 class="card-title">{{this.name}}</h5>
+              <p class="card-text">{{this.description}}</p>
+              <p class="card-text"><strong>Giá:</strong>{{this.price}} VND</p>
+
+
+              <div class="product-quantity-container">
+                <input type="hidden" class="item-id" value="{{this._id}}">
+                <button class="btn-minus" data-action="subtract" data-product-id="{{this._id}}"
+                  data-product-name="{{this.name}}" data-product-price="{{this.price}}">-</button>
+
+                <span class="quantity-display" data-product-id="{{this._id}}">
+                  {{findQuantity customBox.items this._id}}
+                </span>
+
+                <button class="btn-plus" data-action="add" data-product-id="{{this._id}}"
+                  data-product-name="{{this.name}}" data-product-price="{{this.price}}">+</button>
+              </div>
+
+
+            </div>
+          </div>
+
+        </div>
+        {{/each}}
+        {{else}}
+        <p>Hiện tại không có sản phẩm trong kho</p>
+        {{/if}}
+
+        <!-- Additional products here -->
+      </div>
+    </div>
+
+
+
+ 
+
+<script>
+
+  function saveToSessionStorage(items) {
+    sessionStorage.setItem("selectedProducts", JSON.stringify(items));
+  }
+
+  function saveQuantityToSessionStorage(items) {
+    const quantityData = {};
+    items.forEach(item => {
+      quantityData[item.productId._id] = item.quantity;
+    });
+    sessionStorage.setItem("selectedQuantities", JSON.stringify(quantityData));
+  }
+
+
+
+
+
+  document.querySelectorAll(".btn-minus").forEach((button) => {
+    button.addEventListener("click", async (event) => {
+      const container = event.target.closest(".product-quantity-container");
+      const itemId = container.querySelector(".item-id").value;
+
+      try {
+        const response = await fetch("/custom-gifts/minus", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ itemId }),
+        });
+
+        const result = await response.json();
+
+        if (result.success) {
+          const quantityDisplay = container.querySelector(".quantity-display");
+          const updatedItem = result.customBox.items.find(
+            (item) => item.productId._id === itemId
+          );
+          quantityDisplay.textContent = updatedItem ? updatedItem.quantity : 0;
+
+          saveQuantityToSessionStorage(result.customBox.items);
+          saveToSessionStorage(result.customBox.items);
+          // Gọi hàm để hiển thị lại toàn bộ danh sách đã chọn
+          renderSelectedItems(result.customBox.items);
+
+        } else {
+          alert(result.message);
+        }
+      } catch (error) {
+        console.error("Error:", error);
+        alert("Có lỗi xảy ra.");
+      }
+    });
+  });
+
+
+
+  document.querySelectorAll(".btn-plus").forEach((button) => {
+    button.addEventListener("click", async (event) => {
+      const container = event.target.closest(".product-quantity-container");
+      const itemId = container.querySelector(".item-id").value;
+
+      try {
+        const response = await fetch("/custom-gifts/plus", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ itemId }),
+        });
+
+        const result = await response.json();
+
+        if (result.success) {
+          const quantityDisplay = container.querySelector(".quantity-display");
+          const updatedItem = result.customBox.items.find(
+            (item) => item.productId._id === itemId
+          );
+          quantityDisplay.textContent = updatedItem ? updatedItem.quantity : 0;
+
+
+
+          saveQuantityToSessionStorage(result.customBox.items);
+          // Cập nhật sessionStorage
+          saveToSessionStorage(result.customBox.items);
+
+          // Gọi hàm để hiển thị lại toàn bộ danh sách đã chọn
+          renderSelectedItems(result.customBox.items);
+
+        } else {
+          alert(result.message);
+        }
+      } catch (error) {
+        console.error("Error:", error);
+        alert("Có lỗi xảy ra.");
+      }
+    });
+  });
+
+
+
+
+  function renderSelectedItems(items) {
+    const container = document.getElementById("selected-products");
+    if (!container) return;
+
+    // Nếu không có items hoặc mảng rỗng
+    if (!items || items.length === 0) {
+      container.innerHTML = '<h5>Chưa có sản phẩm nào được chọn.</h5>';
+      sessionStorage.removeItem("selectedProducts");
+      return;
+    }
+
+    // Có items => render
+    let html = '';
+    items.forEach(item => {
+      // item.productId.name, item.quantity, item.productId.price ...
+      const name = item.productId.name;
+      const qty = item.quantity;
+      const price = item.productId.price; // tùy theo backend
+      const total = qty * price;
+
+      html += `<p>${name} - Số lượng: ${qty} - Tổng: ${total} VND</p>`;
+    });
+
+    container.innerHTML = html;
+    sessionStorage.setItem("selectedProducts", JSON.stringify(items));
+  }
+
+
+
+
+
+
+
+
+
+  /**************************/
+
+
+  window.addEventListener("DOMContentLoaded", () => {
+    if (sessionStorage.getItem("selectedQuantities")) {
+      console.log("Khôi phục số lượng từ sessionStorage.");
+      const storedQuantities = JSON.parse(sessionStorage.getItem("selectedQuantities"));
+
+      document.querySelectorAll(".quantity-display").forEach(span => {
+        const productId = span.getAttribute("data-product-id");
+        if (storedQuantities[productId] !== undefined) {
+          span.textContent = storedQuantities[productId];
+        }
+      });
+
+      // Khôi phục giỏ hàng
+      if (sessionStorage.getItem("selectedProducts")) {
+        renderSelectedItems(JSON.parse(sessionStorage.getItem("selectedProducts")));
+      }
+    }
+  });
+
+
+
+
+  document.querySelectorAll("a.nav-link").forEach(link => {
+    link.addEventListener("click", (event) => {
+      const href = event.target.getAttribute("href");
+      if (href && !href.startsWith("/custom-gifts")) {
+
+        sessionStorage.removeItem("selectedProducts");
+        sessionStorage.removeItem("selectedQuantities");
+      }
+    });
+  });
+
+
+
+
+  window.addEventListener("load", async () => {
+    if (sessionStorage.getItem("selectedProducts")) {
+
+      renderSelectedItems(JSON.parse(sessionStorage.getItem("selectedProducts")));
+      return;
+    }
+
+    try {
+      const response = await fetch("/custom-gifts/reset-cart", { method: "POST" });
+      const data = await response.json();
+      console.log("Giỏ hàng đã reset:", data.message);
+    } catch (error) {
+      console.error("Lỗi reset giỏ hàng:", error);
+    }
+  });
+
+
+
+
+
+
+  /****************************************/
+
+
+
+  function showProducts(section) {
+    const regularProducts = document.getElementById('regularProducts');
     
 
-    <script>
-document.querySelectorAll(".btn-minus").forEach((button) => {
-  button.addEventListener("click", async (event) => {
-    const container = event.target.closest(".product-quantity-container");
-    const itemId = container.querySelector(".item-id").value;
+    // Remove active class and reset color for all tabs
+    document.querySelectorAll('.nav-tabs .nav-link').forEach(tab => {
+      tab.classList.remove('active');
+      tab.style.color = 'black'; // Đặt lại màu cho tab không active
+    });
 
-    try {
-      const response = await fetch("/custom-gifts/minus", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ itemId }),
-      });
+    // Add active class and set color to dark red for the active tab
+    const activeTab = document.querySelector(`.nav-tabs .nav-link[onclick="showProducts('${section}')"]`);
+    activeTab.classList.add('active');
+    activeTab.style.color = '#8B0000'; // Màu huyết
+  }
 
-      const result = await response.json();
+  function searchProducts() {
+    const query = document.getElementById("searchInput").value.toLowerCase();
+    const cards = document.querySelectorAll(".card");
 
-      if (result.success) {
-        const quantityDisplay = container.querySelector(".quantity-display");
-        const updatedItem = result.customBox.items.find(
-          (item) => item.productId._id === itemId
-        );
-        quantityDisplay.textContent = updatedItem ? updatedItem.quantity : 0;
-      } else {
-        alert(result.message);
-      }
-    } catch (error) {
-      console.error("Error:", error);
-      alert("Có lỗi xảy ra.");
+    cards.forEach(card => {
+      const title = card.querySelector(".card-title").textContent.toLowerCase();
+      card.parentElement.style.display = title.includes(query) ? "block" : "none";
+    });
+  }
+
+  window.onscroll = function () {
+    const navbar = document.querySelector('.navbar');
+    if (window.scrollY > 50) {
+      navbar.classList.add('scrolled');
+    } else {
+      navbar.classList.remove('scrolled');
     }
-  });
-});
-
-document.querySelectorAll(".btn-plus").forEach((button) => {
-  button.addEventListener("click", async (event) => {
-    const container = event.target.closest(".product-quantity-container");
-    const itemId = container.querySelector(".item-id").value;
-
-    try {
-      const response = await fetch("/custom-gifts/plus", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ itemId }),
-      });
-
-      const result = await response.json();
-
-      if (result.success) {
-        const quantityDisplay = container.querySelector(".quantity-display");
-        const updatedItem = result.customBox.items.find(
-          (item) => item.productId._id === itemId
-        );
-        quantityDisplay.textContent = updatedItem ? updatedItem.quantity : 0;
-      } else {
-        alert(result.message);
-      }
-    } catch (error) {
-      console.error("Error:", error);
-      alert("Có lỗi xảy ra.");
-    }
-  });
-});
+  };
 
 
 
-    </script>
+
+</script>

@@ -857,7 +857,7 @@ input[type="radio"]:hover {
   /* Ẩn modal theo mặc định */
   position: fixed;
   /* Đặt modal ở vị trí cố định */
-  z-index: 1;
+  z-index: 1050 !important;
   /* Đặt z-index cao hơn để nó nằm trên các phần tử khác */
   left: 0;
   top: 0;
@@ -872,7 +872,7 @@ input[type="radio"]:hover {
 
 .modal-content {
   background-color: #fefefe;
-  margin: 15% auto;
+  margin: 3% auto;
   /* Căn giữa modal */
   padding: 20px;
   border: 1px solid #888;

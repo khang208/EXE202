@@ -5,8 +5,13 @@ const cartControllers = require('../app/controllers/CustomGiftController');
 router.get('/', cartControllers.showCustom);
 router.get('/box', cartControllers.showCustomBox);
 router.get('/mes', cartControllers.showCustomMes);
+router.get('/gift', cartControllers.showGuideGift);
 router.post('/minus', cartControllers.minus);
 router.post('/plus', cartControllers.plus);
+
+router.post('/reset-cart', cartControllers.resetCart);
+router.post('/payment', cartControllers.payment);
+
 // router.post('/minus', cartControllers.minus);
 // router.post('/payment', cartControllers.payment);
 // router.post('/plus', cartControllers.plus);

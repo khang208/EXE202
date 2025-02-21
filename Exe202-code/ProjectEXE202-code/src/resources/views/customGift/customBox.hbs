@@ -1,17 +1,21 @@
 <div class=" mt-5">
-        <h1 class="text-center mb-4">Tạo hộp quà của bạn</h1>
+    <h1 class="text-center mb-4">Tạo hộp quà của bạn</h1>
 
-        <ul class=" container nav nav-tabs mb-4">
-            <li class="nav-item">
-                <a class="nav-link " id="step1-tab" data-bs-toggle="tab" href="/custom-gifts">Bước 1: Chọn sản phẩm</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link active" id="step2-tab" data-bs-toggle="tab" href="">Bước 2: Chọn Hộp quà tặng</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" id="step3-tab" data-bs-toggle="tab" href="/custom-gifts/mes">Bước 3: Thêm tin nhắn cá nhân</a>
-            </li>
-        </ul>
+    <ul class=" container nav nav-tabs mb-4">
+        <li class="nav-item">
+            <a class="nav-link" id="step1-tab" data-bs-toggle="tab" href="/custom-gifts/gift">Hướng dẫn</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link " id="step1-tab" data-bs-toggle="tab" href="/custom-gifts">Bước 1: Chọn sản phẩm</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link active" id="step2-tab" data-bs-toggle="tab" href="">Bước 2: Chọn Hộp quà tặng</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="step3-tab" data-bs-toggle="tab" href="/custom-gifts/mes">Bước 3: Thêm tin nhắn cá
+                nhân</a>
+        </li>
+    </ul>
 
     <div class="container tab-content">
         <!-- Tab 2 -->
@@ -22,20 +26,27 @@
                     {{#if boxs.length}}
                     {{#each boxs}}
                     <div class="product-card">
-                        <img src="{{this.image}}" alt="Gift Box 2" class="gift-box-img">
+                        <img src="{{this.image}}" alt="{{this.name}}" class="gift-box-img">
                         <div class="product-description">
                             <p style="font-weight: bold;">{{this.name}}</p>
                             <p class="product-price">Giá: {{this.price}}</p>
                             <label>
-                                <input type="radio" name="giftBox" value="Gift Box 2" onchange="updateSelectedGiftBox('Hộp sinh nhật')"> Lựa chọn
+                                <input type="radio" name="giftBox" value="{{this.price}}"
+                                    onchange="updateSelectedGiftBox('{{this.name}}','{{this.price}}')"> Lựa chọn
                             </label>
                         </div>
                     </div>
                     {{/each}}
                     {{else}}
-                <p>Hộp quà đang hết trong kho</p>
+                    <p>Hộp quà đang hết trong kho</p>
                     {{/if}}
                 </div>
+
+
+
+
+
+
                 <div class="col-md-6">
                     <h3>Hộp quà đã chọn</h3>
                     <div id="selected-gift-box" class="selected-summary">
@@ -46,18 +57,80 @@
             <div class="text-center">
                 <a href="/custom-gifts">
 
-                <button class="btn btn-secondary next" onclick="goToStep(1)">Bước trước</button>
+                    <button class="btn btn-secondary next" onclick="goToStep(1)">Bước trước</button>
 
                 </a>
                 <a href="/custom-gifts/mes">
 
-                <button class="btn btn-primary next" onclick="goToStep(3)">Bước tiếp theo</button>
+                    <button class="btn btn-primary next" onclick="goToStep(3)">Bước tiếp theo</button>
 
                 </a>
             </div>
         </div>
     </div>
-    </div>
-    
+</div>
 
-    
+
+<script>
+
+
+    // Lưu hộp quà & radio vào sessionStorage
+    function updateSelectedGiftBox(name, price, value) {
+        const selectedGiftBoxDiv = document.getElementById("selected-gift-box");
+
+        if (name) {
+            selectedGiftBoxDiv.innerHTML = `<p>${name} - Giá: ${price} VND</p>`;
+            saveGiftBoxToSessionStorage(name, price);
+            saveSelectedRadio(value);
+        } else {
+            selectedGiftBoxDiv.innerHTML = '<h5>Chưa có hộp quà nào được chọn.</h5>';
+            sessionStorage.removeItem("selectedGiftBox");
+            sessionStorage.removeItem("selectedGiftBoxRadio");
+        }
+    }
+
+    // Lưu hộp quà vào sessionStorage
+    function saveGiftBoxToSessionStorage(name, price) {
+        const selectedBox = { name, price };
+        sessionStorage.setItem("selectedGiftBox", JSON.stringify(selectedBox));
+    }
+
+    // Lưu radio đã chọn vào sessionStorage
+    function saveSelectedRadio(value) {
+        sessionStorage.setItem("selectedGiftBoxRadio", value);
+    }
+
+    // Khi tải lại trang -> Khôi phục dữ liệu
+    window.addEventListener("DOMContentLoaded", () => {
+        // Khôi phục hộp quà
+        if (sessionStorage.getItem("selectedGiftBox")) {
+            console.log("Khôi phục hộp quà từ sessionStorage.");
+            const storedGiftBox = JSON.parse(sessionStorage.getItem("selectedGiftBox"));
+            updateSelectedGiftBox(storedGiftBox.name, storedGiftBox.price, storedGiftBox.price);
+        }
+
+        // Khôi phục radio button đã chọn
+        const selectedRadioValue = sessionStorage.getItem("selectedGiftBoxRadio");
+        if (selectedRadioValue) {
+            const radioButtons = document.querySelectorAll('input[name="giftBox"]');
+            radioButtons.forEach((radio) => {
+                if (radio.value === selectedRadioValue) {
+                    radio.checked = true;
+                }
+            });
+        }
+    });
+
+    // Xóa dữ liệu khi rời khỏi /custom-gifts
+    document.querySelectorAll("a.nav-link").forEach(link => {
+        link.addEventListener("click", (event) => {
+            const href = event.target.getAttribute("href");
+            if (href && !href.startsWith("/custom-gifts")) {
+                console.log("Rời khỏi custom-gifts -> Xóa sessionStorage.");
+                sessionStorage.removeItem("selectedGiftBox");
+                sessionStorage.removeItem("selectedGiftBoxRadio");
+            }
+        });
+    });
+
+</script>
