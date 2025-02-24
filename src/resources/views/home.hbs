@@ -1,0 +1,180 @@
+
+<div class="container-fluid p-0">
+  <div class="row">
+    <div class="col-12">
+      <header class="d-flex flex-column justify-content-center align-items-center text-center bg-light ">
+        <h1>Chào mừng đến với JoyfulBox</h1>
+        <p>Điểm dừng chân duy nhất cho những hộp quà độc đáo và có thể tùy chỉnh!</p>
+        <a href="/product/productShow" class="btn btn-light btn-lg btn-shop-now">Mua ngay</a>
+      </header>
+    </div>
+  </div>
+</div>
+
+
+    <div class="container py-5 about-section section">
+        <h2 class="text-center mb-4">Giới thiệu về chúng tôi</h2>
+        <p class="text-center lead">Tại JoyfulBox, chúng tôi tạo ra những trải nghiệm quà tặng được cá nhân hóa cho mọi
+            dịp. Các hộp quà được tuyển chọn của chúng tôi được thiết kế để lan tỏa niềm vui và tình yêu. Thêm thông
+            điệp của riêng bạn để làm cho món quà của bạn trở nên đặc biệt hơn.
+        </p>
+
+        <div class="row mt-5">
+            <div class="col-lg-6 mb-4" style="padding-left: 15%; padding-top: 30px;">
+                <h3>Tại sao chọn chúng tôi?</h3>
+                <p>Chúng tôi cung cấp nhiều loại sản phẩm và các tùy chọn tùy chỉnh của chúng tôi cho phép bạn cá nhân
+                    hóa mọi món quà. Khám phá hộp quà tặng của chúng tôi dành riêng cho sinh nhật, kỷ niệm, ngày lễ và
+                    nhiều hơn nữa!</p>
+            </div>
+            <div class="col-lg-6 mb-4">
+                <img src="https://happyboxstore.com/cdn/shop/files/DSC07911Baby_Panda_Gift.png?v=1725914841"
+                    class="img-fluid rounded" alt="Gift Box">
+            </div>
+        </div>
+    </div>
+<div class="container py-5 featured-section section">
+    <h2 class="text-center mt-1 mb-4">Hộp quà tặng đặc sắc</h2>
+    
+    <!-- Cart Info  -->
+    <div id="cart-info" hidden>
+        <p>Tổng số lượng: <span id="total-quantity">{{cart.totalQuantity}}</span></p>
+        <p>Tổng giá: <span id="total-price">{{cart.totalPrice}}</span></p>
+    </div>
+
+    <!-- Product List -->
+    <div class="row">
+        {{#each products}}
+        <div class="col-md-4 mb-4">
+            <div class="card">
+                <a href="/product/{{this.slug}}">
+                    <img src="{{this.image}}" class="card-img-top" alt="Product Image">
+                </a>
+                <div class="card-body">
+                    <a href="/product/{{this.slug}}">
+                        <h5 class="card-title">{{this.name}}</h5>
+                    </a>
+                    <p class="card-text">{{this.price}}</p>
+                    <button 
+                        class="btn btn-primary add-to-cart-btn" 
+                        data-product-id="{{this._id}}">
+                        Thêm vào giỏ hàng
+                    </button>
+                </div>
+            </div>
+        </div>
+        {{/each}}
+    </div>
+</div>
+
+           
+            <div class="container py-5 articles-section section">
+        <h2 class="text-center mb-4">Bài viết mới nhất</h2>
+        <div class="row">
+            {{#each news}}
+
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <img src="{{this.image}}"
+                        class="card-img-top" alt="Article 1">
+                    <div class="card-body">
+                        <h5 class="card-title">{{this.name}}</h5>
+                        <p class="card-text">{{this.description}}
+                        </p>
+                        <a href="#" class="btn btn-primary">Đọc thêm</a>
+                    </div>
+                </div>
+            </div>
+    {{/each}} 
+    <div class="container py-5 testimonials-section section">
+        <h2 class="text-center mb-4">Khách hàng của chúng tôi nói gì</h2>
+        <div class="row">
+            <div class="col-md-6 mb-4">
+                <blockquote class="blockquote">
+                    <p class="mb-0">Hộp quà tôi đặt thật hoàn hảo! Bạn tôi rất thích!</p>
+                    <footer class="blockquote-footer">Alice Johnson</footer>
+                </blockquote>
+            </div>
+            <div class="col-md-6 mb-4">
+                <blockquote class="blockquote">
+                    <p class="mb-0">Chất lượng tuyệt vời và giao hàng nhanh. Rất đáng để giới thiệu!</p>
+                    <footer class="blockquote-footer">Michael Smith</footer>
+                </blockquote>
+            </div>
+        </div>
+    </div>
+
+    <div class="container py-5">
+        <div class="text-center">
+            <h3>Tham gia bản tin của chúng tôi</h3>
+            <p>Cập nhật những sản phẩm và ưu đãi mới nhất của chúng tôi.</p>
+            <form class="d-flex justify-content-center">
+                <input class="form-control me-2" type="email" placeholder="Nhập email của bạn" aria-label="Email">
+                <button class="btn btn-primary" type="submit">Đặt mua</button>
+            </form>
+        </div>
+    </div>
+
+        </div>
+    </div>
+
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const cartInfo = document.getElementById('cart-info');
+
+    document.querySelectorAll('.add-to-cart-btn').forEach(button => {
+        button.addEventListener('click', async (e) => {
+            const productId = button.getAttribute('data-product-id');
+
+            try {
+                const response = await fetch('/cart/add-to-cart', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ productId })
+                });
+
+                if (response.status === 401) {
+                    // Chuyển hướng nếu người dùng chưa đăng nhập
+                    window.location.href = '/account';
+                    return;
+                }
+
+                const data = await response.json();
+
+                if (data.success) {
+                    // Cập nhật thông tin giỏ hàng và cartCount
+                    document.getElementById('total-quantity').textContent = data.cart.totalQuantity;
+                    document.getElementById('total-price').textContent = data.cart.totalPrice;
+
+                    // Hiển thị số lượng sản phẩm trong cartCount
+                    const cartCountElement = document.getElementById('cart-count');
+                    if (cartCountElement) {
+                        cartCountElement.textContent = data.cart.totalQuantity;
+                    }
+
+                    // Hiệu ứng thông báo
+                    button.textContent = 'Đã thêm!';
+                    button.classList.add('btn-success');
+                    setTimeout(() => {
+                        button.textContent = 'Thêm vào giỏ hàng';
+                        button.classList.remove('btn-success');
+                    }, 1000);
+                } else {
+                    alert(data.message);
+                }
+            } catch (error) {
+                console.error('Lỗi:', error);
+                alert('Đã xảy ra lỗi. Vui lòng thử lại!');
+            }
+        });
+    });
+});
+
+
+
+</script>
